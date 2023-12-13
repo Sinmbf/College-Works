@@ -1,14 +1,14 @@
+// WAP that can calculate area and circumference of the circle [ A= pi*r*r and C=2*pi*r ]
+
 #include<stdio.h>
 
 int main(){
-    int num,rem,sum=0;
-    printf("Enter a three digit number: ");
-    scanf("%d",&num);
-    while(num!=0){
-        rem=num%10;     // Get the remainder which is also the last digit
-        sum+=rem;       // Add the remainder ( digits from last to first )
-        num=num/10;     // Remove the already obtained digit from last to first
-    }
-    printf("The sum of the three digits number = %d\n",sum);
+    float r,area,circumference,pi=3.14;
+    printf("Enter radius: ");
+    scanf("%f",&r);
+    area=pi*r*r;
+    circumference=2*pi*r;
+    printf("Area of the circle=%.2f\n",area);
+    printf("Circumference of the circle=%.2f\n",circumference);
     return 0;
 }

@@ -3,10 +3,11 @@
 #include<stdio.h>
 
 int main(){
-    float rupees,dollars;
+    int rupees;
+    float dollars;
     printf("Enter nepalese rupees: ");
-    scanf("%f",&rupees);
+    scanf("%d",&rupees);
     dollars=rupees/133.39;
-    printf("%f rupees into dollars = %g\n",rupees,dollars);
+    printf("%d rupees into dollars = %g\n",rupees,dollars);
     return 0;
 }

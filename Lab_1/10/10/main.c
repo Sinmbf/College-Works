@@ -7,6 +7,6 @@ int main(){
     printf("Enter weight in gram: ");
     scanf("%f",&g);
     kg=g/1000;
-    printf("%f weight in gram = %g kg\n",g,kg);
+    printf("%g weight in gram = %g kg\n",g,kg);
     return 0;
 }

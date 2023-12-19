@@ -6,7 +6,7 @@ int main(){
     int MP,SP,discount;
     printf("Enter the mark price: ");
     scanf("%d",&MP);
-    discount=(0.31)*MP;
+    discount=(0.3)*MP;
     SP=MP-discount;
     printf("Selling price of the radio = %d\n", SP);
     return 0;

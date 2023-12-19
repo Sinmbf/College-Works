@@ -8,6 +8,7 @@ int main(){
     printf("Enter temperature in centigrade: ");
     scanf("%d",&C);
     F=(C*1.8)+32;
-    printf("%d degree centigrade into fahrenheit = %.2f\n",C,F);
+    printf("%d degree centigrade into fahrenheit = %g\n",C,F);
     return 0;
 }
+

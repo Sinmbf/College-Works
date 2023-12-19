@@ -4,13 +4,14 @@
 
 int main(){
     int b,h;
-    float area;
+    float area,area1;
     printf("Enter base: ");
     scanf("%d",&b);
     printf("Enter height: ");
     scanf("%d",&h);
-    area=(b*h)/2;
-    printf("Area of the triangle = %g\n",area);
+    area=0.5*b*h;
+    area1=(b*h)/2;
+    printf("Area of the triangle = %g\nAlso = %g\b",area,area1);
     return 0;
 }
 

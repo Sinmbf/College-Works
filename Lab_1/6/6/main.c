@@ -12,6 +12,6 @@ int main(){
     printf("Enter the third number: ");
     scanf("%f",&n3);
     avg=(n1+n2+n3)/3;
-    printf("Average of %g, %g and %g is %.2f\n",n1,n2,n3,avg);
+    printf("Average of %g, %g and %g is %g\n",n1,n2,n3,avg);
     return 0;
 }

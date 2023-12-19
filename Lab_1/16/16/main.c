@@ -12,3 +12,4 @@ int main(){
     printf("%d hour into seconds = %d\n",hr,sec);
     return 0;
 }
+

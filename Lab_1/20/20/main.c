@@ -4,15 +4,15 @@
 #include<math.h>
 
 int main(){
-    float a,b,c;
+    int a,b,c;
     float s,area;
     printf("Enter three sides of the triangle:\n");
-    scanf("%f",&a);
-    scanf("%f",&b);
-    scanf("%f",&c);
-    s=(a+b+c)/2;
+    scanf("%d",&a);
+    scanf("%d",&b);
+    scanf("%d",&c);
+    s=(float)(a+b+c)/2;
     area=sqrt(s*(s-a)*(s-b)*(s-c));
     printf("%g\n",s);
-    printf("Area of the triangle = %f\n",area);
+    printf("Area of the triangle = %g\n",area);
     return 0;
 }

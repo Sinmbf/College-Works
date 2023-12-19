@@ -3,9 +3,10 @@
 #include<stdio.h>
 
 int main(){
-    float basic_salary,tax,allowance,gross_salary,net_salary;
+    int basic_salary;
+    float tax,allowance,gross_salary,net_salary;
     printf("Enter basic_salary: ");
-    scanf("%f",&basic_salary);
+    scanf("%d",&basic_salary);
     tax=0.2*basic_salary;
     allowance=0.4*basic_salary;
     gross_salary=basic_salary+allowance;

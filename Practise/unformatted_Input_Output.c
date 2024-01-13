@@ -15,6 +15,7 @@ void main(){
 	printf("\n");
 	*/
 	// Getch, Getche and Putch
+	
 	printf("Enter a charcter: ");
 	ch1=getch();
 	printf("\n");
@@ -25,4 +26,5 @@ void main(){
 	putch(ch1);
 	printf("\t");
 	putch(ch2);
+	
 }

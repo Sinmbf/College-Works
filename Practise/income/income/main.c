@@ -25,5 +25,17 @@ int main(){
     else{
         printf("Class C");
     }
+//    if(income<50000){
+//        printf("Class C");
+//    }
+//    else if(income<300000){
+//        printf("Class B");
+//    }
+//    else if(income<1000000){
+//        printf("Class A");
+//    }
+//    else{
+//        printf("Class A+");
+//    }
     return 0;
 }

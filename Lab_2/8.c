@@ -23,13 +23,13 @@ void main(){
 	if(percentage>=80){
 		printf("Percentage: %.2f%%\nDivision: Distinction\n",percentage);
 	}
-	else if(percentage>=60 && percentage<=79){
+	else if(percentage>=60){
 		printf("Percentage: %.2f%%\nDivision: First Division\n",percentage);
 	}
-	else if(percentage>=45 && percentage<=59){
+	else if(percentage>=45){
 		printf("Percentage: %.2f%%\nDivision: Second Division\n",percentage);
 	}
-	else if(percentage>=32 && percentage<=44){
+	else if(percentage>=32){
 		printf("Percentage: %.2f%%\nDivision: Third Division\n",percentage);
 	}
 	else{

@@ -19,7 +19,7 @@ void main(){
 	printf("Enter marks in seven subjects: ");
 	scanf("%d%d%d%d%d%d%d",&m1,&m2,&m3,&m4,&m5,&m6,&m7);
 	total_marks=m1+m2+m3+m4+m5+m6+m7;
-	percentage=(float)(total_marks*100)/700;
+	percentage=(float)total_marks/700*100;
 	if(percentage>=80){
 		printf("Percentage: %.2f%%\nDivision: Distinction\n",percentage);
 	}

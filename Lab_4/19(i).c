@@ -2,12 +2,12 @@
 
 void main(){
 	int i,j,k;
-	for(i='E';i>='A';i--){
-		for(k='E';k>i;k--){
+	for(i=5;i>=5;i--){
+		for(k=1;k<i;k++){
 			printf(" ");
 		}
-		for(j='A';j<=i;j++){
-			printf("%c ",i);
+		for(j=1;j<=i;j++){
+			printf("%d",j);
 		}
 		printf("\n");
 	}

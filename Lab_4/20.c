@@ -1,13 +1,8 @@
 #include<stdio.h>
 
 void main(){
-	int i,j,n,sum=0;
-	printf("Enter the first term: ");
-	scanf("%d",&i);
-	printf("Enter the no. of terms: ");
-	scanf("%d",&n);
-	for(j=i;j<=n;j++){
-		sum+=j;
-	}
-	printf("Sum of consecutive terms from %d - %d is %d",i,n,sum);
+	int n1,n2;
+	printf("Enter two numbers: ");
+	scanf("%d%d",&n1,&n2);
+	printf("The sum of squares of %d and %d is %d",n1,n2,(n1*n1*n1)+(n2*n2*n2));
 }

@@ -14,7 +14,7 @@ void main(){
 //		printf("\n");
 //	}
 	for(i='E';i>='A';i--){
-		for(k=1;k<'F'-i;k++){
+		for(k='E';k>i;k--){
 			printf(" ");
 		}
 		for(j='A';j<=i;j++){

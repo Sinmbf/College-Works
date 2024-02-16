@@ -1,9 +1,9 @@
 #include<stdio.h>
 
 void main(){
-	int year;
+	int year=1900;
 	printf("List of leap years from 1900 to 2022: \n");
-	for(year=1900;year<=2022;year++){	
+	while(year<=2022){	
 		if(year%4==0 && year%100!=0){
 			printf("%d\n",year);
 		}
@@ -12,5 +12,6 @@ void main(){
 				printf("%d\n",year);
 			}
 		}
+		year++;
 	}
 }

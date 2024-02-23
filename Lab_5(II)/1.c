@@ -12,7 +12,7 @@ void main(){
 	printf("The elements in the array:\n");
 	for(i=0;i<3;i++){
 		for(j=0;j<3;j++){
-			printf("%d ",a[i][j]);
+			printf("%-4d ",a[i][j]);
 		}
 		printf("\n");
 	}

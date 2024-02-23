@@ -23,16 +23,16 @@ int main(){
 		for(j=0;j<c2;j++){
 			scanf("%d",&b[i][j]);
 		}
-	}
-	printf("Matrix C: (A*B)\n");
+	}printf("Matrix C: (A*B)\n");
+	
 	for(i=0;i<r1;i++){
 		for(j=0;j<c2;j++){
 			for(k=0;k<r2;k++){
 				res+=a[i][k]*b[k][j];
 			}
 			c[i][j]=res;
-			printf("%-4d",c[i][j]);
 			res=0;
+			printf("%-4d",c[i][j]);
 		}
 		printf("\n");
 	}

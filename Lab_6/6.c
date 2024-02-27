@@ -4,14 +4,13 @@
 #include<stdio.h>
 
 void main(){
-	char a[100],i,len=0,count=0;
+	char a[5][],i,len=0,count=0;
 	printf("Enter a sentence: ");
-	gets(a);
+	for(i=0;i<5;i++){
+		gets(a[i]);
+	}
 	for(i=0;a[i]!='\0';i++){
-		len++;
-		if(a[i]==' '){
-			count++;
-		}	
+		count++;
 	}
 	printf("Number of words in the sentence: %d",count);
 }

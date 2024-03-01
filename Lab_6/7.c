@@ -1,21 +1,18 @@
-// WAP that will examine each character in character type array called text and print out 
-// the result by converting upper case into lower case and vice versa.
+// WAP that will ask to input a sentence and print the result by replacing the appearance
+// of "an" word with "##"
 
 #include<stdio.h>
 
 void main(){
-	char a[100],i;
-	printf("Enter a sentence: ");
+	char a[100];
+	int i;
+	printf("Enter a line: ");
 	gets(a);
 	for(i=0;a[i]!='\0';i++){
-		if(a[i]>='a' && a[i]<='z'){
-			a[i]-=32;
-		}
-		else{
-			if(a[i]>='A' && a[i]<='Z'){
-				a[i]+=32;
-			}
+		if((a[i]=='a' && a[i+1]=='n') || (a[i]=='A' && a[i+1]=='N')){
+			a[i]='#';
+			a[i+1]='#';
 		}
 	}
-	printf("%s",a);
+	puts(a);
 }

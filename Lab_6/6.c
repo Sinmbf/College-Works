@@ -3,14 +3,19 @@
 
 #include<stdio.h>
 
-void main(){
-	char a[5][],i,len=0,count=0;
+void main() {
+	char a[100];
+	int i,count=1;
 	printf("Enter a sentence: ");
-	for(i=0;i<5;i++){
-		gets(a[i]);
-	}
-	for(i=0;a[i]!='\0';i++){
-		count++;
+	gets(a);
+	if(a[0]==' ' || a[0]=='\0') {
+		count=0;
+	} else {
+		for(i=0; a[i]!='\0'; i++) {
+			if(a[i]==' ' && a[i+1]!=' ' && a[i+1]!='\0') {
+				count++;
+			}
+		}
 	}
 	printf("Number of words in the sentence: %d",count);
 }

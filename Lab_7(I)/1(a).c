@@ -7,7 +7,7 @@
 int cube();
 
 void main() {
-	printf("The cube of %d",cube());
+	printf("The cube is %d",cube());
 }
 
 int cube() {

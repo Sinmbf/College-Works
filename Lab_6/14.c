@@ -5,6 +5,7 @@ void main(){
 	int i,len=0,pal=0;
 	printf("Enter a word: ");
 	gets(a);
+	// Copy the elements of array 'a' into org
 	for(i=0;a[i]!='\0';i++){
 		org[i]=a[i];
 		len++;

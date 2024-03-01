@@ -4,7 +4,10 @@
 
 void main(){
 	char s[100];
+	int i;
 	printf("Enter a sentence: ");
 	gets(s);
-	puts(s);
+	for(i=0;s[i]!='\0';i++){
+		printf("%c",s[i]);
+	}
 }

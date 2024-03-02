@@ -8,14 +8,12 @@ void main(){
 	}
 	largest=a[0];
 	sec_largest=a[1];
-	for(i=1;i<5;i++){
+	for(i=0;i<5;i++){
 		if(a[i]>largest){
 			sec_largest=largest;
 			largest=a[i];
 		}
-	}
-	for(i=0;i<5;i++){
-		if(a[i]!=largest && a[i]>sec_largest){
+		else if(a[i]>sec_largest && a[i]!=largest){
 			sec_largest=a[i];
 		}
 	}

@@ -5,7 +5,7 @@
 
 #include<stdio.h>
 
-char convert(char);
+int convert(char);
 
 void main(){
 	char ch;
@@ -14,7 +14,7 @@ void main(){
 	printf("After conversion:\n%c",convert(ch));
 }
 
-char convert(char ch){
+int convert(char ch){
 	if(ch>='A' && ch<='Z'){
 		return ch+32;
 	}

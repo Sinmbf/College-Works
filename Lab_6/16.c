@@ -10,6 +10,7 @@ void main(){
 	for(i=0;i<5;i++){
 		gets(str[i]);
 	}
+	printf("In Alphabetical Order:\n");
 	for(i=0;i<5;i++){
 		for(j=i+1;j<5;j++){
 			if(strcmp(str[i],str[j])>0){
@@ -17,7 +18,8 @@ void main(){
 				strcpy(str[i],str[j]);
 				strcpy(str[j],temp);
 			}
+			puts(str[i]);
 		}
-		printf("\n%s\n",str[i]);
+		
 	}	
 }

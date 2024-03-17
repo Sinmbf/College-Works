@@ -6,8 +6,8 @@
 
 // Function Prototype
 int read();
-int largest(int,int);
-int smallest(int,int);
+void largest(int []);
+void smallest(int []);
 
 // Main Function
 void main(){
@@ -16,13 +16,8 @@ void main(){
 	for(i=0;i<5;i++){
 		a[i]=read();
 	}
-	greatest=a[0];
-	least=a[1];
-	for(i=0;i<5;i++){
-		greatest=largest(greatest,a[i]);
-		least=smallest(least,a[i]);
-	}
-	printf("The largest value in the array: %d\nThe smallest value in the array: %d",greatest,least);
+	largest(a);
+	smallest(a);
 }
 
 // Function Definition
@@ -32,16 +27,22 @@ int read(){
 	return n;
 }
 
-int largest(n1,n2){
-	if(n2>n1){
-		return n2;
+void largest(int a[5]){
+	int i,largest=a[0];
+	for(i=0;i<5;i++){
+		if(a[i]>largest){
+			largest=a[i];
+		}
 	}
-	return n1;
+	printf("Largest element: %d\n",largest);
 }
 
-int smallest(n1,n2){
-	if(n2<n1){
-		return n2;
+void smallest(int a[5]){
+	int i,smallest=a[0];
+	for(i=0;i<5;i++){
+		if(a[i]<smallest){
+			smallest=a[i];
+		}
 	}
-	return n1;
+	printf("Smallest element: %d\n",smallest);
 }

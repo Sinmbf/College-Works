@@ -4,8 +4,8 @@
 
 // Function Prototype
 int read();
-int ascending(int a[],int);
-int descending(int a[],int);
+void ascending(int []);
+void descending(int []);
 
 // Main Function
 void main() {
@@ -14,8 +14,14 @@ void main() {
 	for(i=0; i<5; i++) {
 		a[i]=read();
 	}
-	ascending(a,5);
-	descending(a,5);
+	ascending(a);
+	for(i=0;i<5;i++){
+		printf("%d\n",a[i]);
+	}
+	descending(a);
+	for(i=0;i<5;i++){
+		printf("%d\n",a[i]);
+	}
 }
 
 int read() {
@@ -24,32 +30,30 @@ int read() {
 	return n;
 }
 
-int ascending(int a[5],int size) {
+void ascending(int a[5]) {
 	int i,j,temp;
 	printf("\nIn Ascending Order:\n");
-	for(i=0;i<size;i++){
-		for(j=i+1;j<size;j++){
+	for(i=0;i<5-1;i++){
+		for(j=i+1;j<5;j++){
 			if(a[i]>a[j]){
 				temp=a[i];
 				a[i]=a[j];
 				a[j]=temp;
 			}
 		}
-		printf("%d\n",a[i]);
 	}
 }
 
-int descending(int a[5],int size) {
+void descending(int a[5]) {
 	int i,j,temp;
 	printf("\nIn Descending Order:\n");
-	for(i=0;i<size;i++){
-		for(j=i+1;j<size;j++){
+	for(i=0;i<5-1;i++){
+		for(j=i+1;j<5;j++){
 			if(a[i]<a[j]){
 				temp=a[i];
 				a[i]=a[j];
 				a[j]=temp;
 			}
 		}
-		printf("%d\n",a[i]);
 	}
 }

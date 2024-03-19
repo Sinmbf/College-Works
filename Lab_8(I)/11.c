@@ -8,11 +8,13 @@ void swap(int *,int *);
 
 // Main Program
 void main(){
-	int n1,n2;
+	int n1,n2,*ptr1,*ptr2;
 	printf("Enter two values: ");
 	scanf("%d%d",&n1,&n2);
+	ptr1=&n1;
+	ptr2=&n2;
 	printf("Before swap:\nNumber 1 = %d\nNumber 2= %d\n",n1,n2);
-	swap(&n1,&n2);
+	swap(ptr1,ptr2);
 	printf("After swap:\nNumber 1 = %d\nNumber 2= %d\n",n1,n2);
 }
 

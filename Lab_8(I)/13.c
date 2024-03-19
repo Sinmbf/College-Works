@@ -15,6 +15,10 @@ void main(){
 		scanf("%d",ptr+i);
 	}
 	ascending(ptr);
+	printf("In Ascending Order:\n");
+	for(i=0;i<5;i++){
+		printf("%d\n",*(ptr+i));
+	}
 }
 
 // Function Definition
@@ -28,9 +32,5 @@ void ascending(int *ptr){
 				*(ptr+j)=temp;
 			}
 		}
-	}
-	printf("In Ascending Order:\n");
-	for(i=0;i<5;i++){
-		printf("%d\n",*(ptr+i));
 	}
 }

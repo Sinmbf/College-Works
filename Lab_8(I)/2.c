@@ -11,4 +11,5 @@ void main(){
 	ptr2=&n2;
 	printf("%d + %d = %d\n",*ptr1,*ptr2,*ptr1+*ptr2);
 	printf("%d - %d = %d\n",*ptr1,*ptr2,*ptr1-*ptr2);
+	printf("%d * %d = %d\n",*ptr1,*ptr2,*ptr1**ptr2);
 }

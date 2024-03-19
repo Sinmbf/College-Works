@@ -16,9 +16,9 @@ void main(){
 	printf("Enter %d values for array B: ",n);
 	for(i=0;i<n;i++){
 		scanf("%d",ptr2+i);
-		*(ptr3+i)=*(ptr1+i)+*(ptr2+i);
+		*(ptr3+i)=*(ptr1+i)-*(ptr2+i);
 	}
-	printf("C = A + B:\n");
+	printf("C = A - B:\n");
 	for(i=0;i<n;i++){
 		printf("%d\n",*(ptr3+i));
 	}

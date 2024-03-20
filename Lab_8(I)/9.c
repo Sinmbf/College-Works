@@ -9,6 +9,10 @@ void main(){
 	printf("Enter the size of the array: ");
 	scanf("%d",&n);
 	ptr=(int *)malloc(n*sizeof(int));
+	if(ptr==NULL){
+		printf("Memory Allocation Failed!");
+		exit(0);
+	}
 	printf("Enter %d values: ",n);
 	for(i=0;i<n;i++){
 		scanf("%d",ptr+i);
@@ -17,4 +21,5 @@ void main(){
 	for(i=0;i<n;i++){
 		printf("%d\n",*(ptr+i));
 	}
+	free(ptr);
 }

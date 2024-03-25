@@ -18,8 +18,8 @@ void main(){
 				strcpy(str[i],str[j]);
 				strcpy(str[j],temp);
 			}
-			puts(str[i]);
 		}
+		puts(str[i]);
 		
 	}	
 }

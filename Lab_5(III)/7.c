@@ -44,7 +44,6 @@ void add(int r1,int c1,int a[10][10],int b[10][10]){
 	for(i=0;i<r1;i++){
 		for(j=0;j<c1;j++){
 			c[i][j]=a[i][j]+b[i][j]; // Add
-			d[i][j]=a[i][j]-b[i][j]; // Subtract
 		}
 	}
 	// Display

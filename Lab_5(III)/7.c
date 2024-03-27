@@ -5,8 +5,8 @@
 #include<stdlib.h>
 
 // Function Prototype
-void add(int,int,int,int,int a[10][10],int b[10][10]);
-void subtract(int,int,int,int,int a[10][10],int b[10][10]);
+void add(int,int,int a[10][10],int b[10][10]);
+void subtract(int,int,int a[10][10],int b[10][10]);
 
 // Main Program
 void main(){
@@ -33,12 +33,12 @@ void main(){
 		}
 	}
 	// Function call
-	add(r1,r2,c1,c2,a,b);
-	subtract(r1,r2,c1,c2,a,b);
+	add(r1,c1,a,b);
+	subtract(r1,c1,a,b);
 }
 
 // Function Definition (For adding matrix)
-void add(int r1,int r2,int c1,int c2,int a[10][10],int b[10][10]){
+void add(int r1,int c1,int a[10][10],int b[10][10]){
 	// Adding both matrix
 	int i,j,c[10][10],d[10][10];
 	for(i=0;i<r1;i++){
@@ -58,7 +58,7 @@ void add(int r1,int r2,int c1,int c2,int a[10][10],int b[10][10]){
 }
 
 // Function Definition (For subtracting matrix)
-void subtract(int r1,int r2,int c1,int c2,int a[10][10],int b[10][10]){
+void subtract(int r1,int c1,int a[10][10],int b[10][10]){
 	// Subtracting both matrix
 	int i,j,c[10][10];
 	for(i=0;i<r1;i++){

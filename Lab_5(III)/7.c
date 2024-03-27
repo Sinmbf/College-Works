@@ -16,7 +16,7 @@ void main(){
 	printf("Enter the no. of rows and columns for matrix B: ");
 	scanf("%d%d",&r2,&c2);
 	if(r1!=r2 || c1!=c2){
-		printf("Matrix addition not possible");
+		printf("Matrix addition not possible(Rows and columns not equal)");
 		exit(0);
 	}
 	// Taking values for both matrix

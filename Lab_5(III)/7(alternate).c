@@ -8,6 +8,7 @@
 void read(int,int,int a[10][10]);
 void add(int,int,int a[10][10],int b[10][10]);
 void subtract(int,int,int a[10][10],int b[10][10]);
+void display(int,int,int c[10][10]);
 
 // Main Program
 void main(){
@@ -51,12 +52,7 @@ void add(int r1,int c1,int a[10][10],int b[10][10]){
 	}
 	// Display
 	printf("Sum:\n");
-	for(i=0;i<r1;i++){
-		for(j=0;j<c1;j++){
-			printf("%-4d",c[i][j]);
-		}
-		printf("\n");
-	}	
+	display(r1,c1,c);	
 }
 
 // Function Definition (For subtracting matrix)
@@ -70,10 +66,16 @@ void subtract(int r1,int c1,int a[10][10],int b[10][10]){
 	}
 	// Display
 	printf("Difference:\n");
+	display(r1,c1,c);	
+}
+
+// Function Definition (For displaying values)
+void display(int r1,int c1,int c[10][10]){
+	int i,j;
 	for(i=0;i<r1;i++){
 		for(j=0;j<c1;j++){
 			printf("%-4d",c[i][j]);
 		}
 		printf("\n");
-	}	
+	}
 }

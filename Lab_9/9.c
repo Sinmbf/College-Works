@@ -23,7 +23,7 @@ void updateBalance(struct customer c[]);
 void main() {
 	struct customer c[11];
 	int i;
-	for(i=0; i<3; i++) {
+	for(i=0; i<11; i++) {
 		fflush(stdin);
 		printf("Details of customer %d:\n",i+1);
 		printf("Name: ");
@@ -42,7 +42,7 @@ void display(struct customer c[]) {
 	int i;
 	printf("\nCustomers with balance less than 200:\n");
 	printf("Acc No Name                Balance\n");
-	for(i=0; i<3; i++) {
+	for(i=0; i<11; i++) {
 		if(c[i].balance<200) {
 			printf("%-7d%-20s%d\n",c[i].accNo,c[i].name,c[i].balance);
 		}
@@ -55,7 +55,7 @@ void updateBalance(struct customer c[]) {
 	printf("\nCustomers with balance > 1000 (100 bonus):\n");
 	printf("Acc No Name                Balance\n");
 	// Increment balance and display
-	for(i=0; i<3; i++) {
+	for(i=0; i<11; i++) {
 		if(c[i].balance>1000) {
 			c[i].balance+=100;
 			printf("%-7d%-20s%d\n",c[i].accNo,c[i].name,c[i].balance);

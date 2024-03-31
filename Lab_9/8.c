@@ -24,7 +24,7 @@ struct student {
 void main() {
 	struct student s[5],temp[5];
 	int i,j,totalInC=0,totalMarksOfAll=0,topper,count=0;
-	float avgInC,avgInAll,percentage;
+	float avgInC,avgInAll[5],percentage;
 	char sub[5][20]= {"C","English","Mathematics","Foundation of IT","Business Management"};
 	// Read values
 	for(i=0; i<5; i++) {
@@ -70,10 +70,9 @@ void main() {
 	// Find average marks 
 	for(i=0; i<5; i++) {
 		totalInC+=s[i].marks[0]; // in C
-		totalMarksOfAll+=s[i].total;
+		avgInAll[i]=(float)s[i].total/5;
 	}
 	avgInC=(float)totalInC/5;
-	avgInAll=(float)totalMarksOfAll/5;
 	printf("\nAverage marks in Programming: %.2f\n",avgInC);
 	// Find percentage of Nabaraj
 	for(i=0; i<5; i++) {
@@ -93,5 +92,7 @@ void main() {
 	}
 	printf("\nTopper: %s\n",s[count].name);
 	// Find the average marks of student
-	printf("\nAverage marks of students: %.2f\n",avgInAll);
+	for(i=0;i<5;i++){
+		printf("Average marks of %s: %.2f\n",s[i].name,avgInAll[i]);
+	}
 }

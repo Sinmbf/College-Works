@@ -16,7 +16,6 @@ struct customer {
 	int accNo;
 	int balance;
 };
-
 void display(struct customer c[]);
 void updateBalance(struct customer c[]);
 
@@ -38,7 +37,7 @@ void main() {
 }
 
 // Function to display customers with balance < 200
-void display(struct customer c[]) {
+void display(struct customer c[11]) {
 	int i;
 	printf("\nCustomers with balance less than 200:\n");
 	printf("Acc No Name                Balance\n");

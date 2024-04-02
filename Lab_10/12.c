@@ -24,12 +24,14 @@ void main() {
 	while(fread(&itm,sizeof(itm),1,fptr)) {
 		printf("%-10d%-15s%d\n",itm.itm_code,itm.name,itm.price);
 	}
-	rewind(fptr);
+
 	do {
-		printf("Enter the item code of the item you want to purchase: ");
+		// Reset the file pointer
+		rewind(fptr);
+		printf("\nEnter the item code of the item you want to purchase: ");
 		scanf("%d",&code);
 		while(fread(&itm,sizeof(itm),1,fptr)) {
-			if(itm.itm_code==code){
+			if(itm.itm_code==code) {
 				bill+=itm.price;
 				count++;
 				break;
@@ -38,6 +40,6 @@ void main() {
 		printf("Do you want to purchase more?[y/n] ");
 		scanf(" %c",&choice);
 	} while(choice=='y' || choice=='Y');
-	printf("You purchased %d items. Your total bill is %d",count,bill);
+	printf("\nYou purchased %d items. Your total bill is %d",count,bill);
 	fclose(fptr);
 }

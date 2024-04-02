@@ -12,7 +12,7 @@ void main(){
 		exit(1);
 	}
 	fptr2=fopen("copy3.txt","w");
-	if(fptr1==NULL){
+	if(fptr2==NULL){
 		printf("Error opening copy3.txt");
 		exit(1);
 	}
@@ -20,7 +20,7 @@ void main(){
 	fgets(str,sizeof(str),stdin);
 	// Write string to file
 	if(fputs(str,fptr1)==EOF){
-		printf("Error writing to file1.txt");
+		printf("Error writing to file3.txt");
 		exit(1);
 	}
 	// Reset the file pointer
@@ -28,7 +28,7 @@ void main(){
 	// Read string from the file 1 and write it to another file(copy)
 	while(fgets(str,sizeof(str),fptr1)!=NULL){
 		if(fputs(str,fptr2)==EOF){
-			printf("Error writing to file2.txt");
+			printf("Error writing to copy3.txt");
 			exit(1);
 		}
 	}

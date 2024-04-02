@@ -5,7 +5,7 @@
 
 void main(){
 	FILE *fptr;
-	char str[100];
+	char str[100],ch;
 	fptr=fopen("char.dat","a+");
 	if(fptr==NULL){
 		printf("File opening error");
@@ -14,12 +14,17 @@ void main(){
 	printf("Enter some content to add: ");
 	gets(str);
 	// Add string to the file
-	fputs(str,fptr);
+	if(fputs(str,fptr)!=EOF){
+		printf("Content added successfully\n");
+	}
+	else{
+		printf("Error writing to file\n");
+	}
 	// Reset the file pointer
 	rewind(fptr);
 	// Read string from the file
-	while(fgets(str,sizeof(str),fptr)!=NULL){
-		printf("%s",str);
+	while((ch=fgetc(fptr))!=EOF){
+		printf("%c",ch);
 	}
 	fclose(fptr);
 }

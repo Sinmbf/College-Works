@@ -33,5 +33,4 @@ void main(){
 	}
 	printf("5 more items successfully added to item.txt");
 	fclose(fptr);
-	
 }

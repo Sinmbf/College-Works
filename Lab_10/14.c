@@ -46,11 +46,11 @@ void main() {
 	// Reset the file pointer
 	rewind(fptr);
 	printf("\nEmployees whose office name is Nccs College and occupation is manager:\n");
-	printf("Eid  Name           Office Name    Occupation\n");
+	printf("Eid  Name           Office Name  Occupation\n");
 	// Reading from the file
 	while(fread(&emp,sizeof(emp),1,fptr)) {
 		if((strcasecmp(emp.officeName,"Nccs College")==0) && (strcasecmp(emp.occupation,"Manager")==0)) {
-			printf("%-5d%-15s%-15s%s\n",emp.eid,emp.name,emp.officeName,emp.occupation);
+			printf("%-5d%-15s%-13s%s\n",emp.eid,emp.name,emp.officeName,emp.occupation);
 		}
 	}
 	fclose(fptr);

@@ -10,7 +10,7 @@ void gotoxy(int x, int y) {
 }
 
 int main() {
-	int consoleWidth = 100; // assuming a console width of 80 characters
+	int consoleWidth = 100; // assuming a console width of 100 characters
     int consoleHeight = 24; // assuming a console height of 24 lines
 
     int middleX = consoleWidth / 2;

@@ -3,31 +3,27 @@
 #include<stdio.h>
 
 // Function Prototype
-int read();
+void read();
+void display(int []);
 void ascending(int []);
 void descending(int []);
 
 // Main Function
 void main() {
-	int i,j,a[5],temp;
-	printf("Enter 5 numbers: ");
-	for(i=0; i<5; i++) {
-		a[i]=read();
-	}
+	int a[5];
+	read(a);
 	ascending(a);
-	for(i=0;i<5;i++){
-		printf("%d\n",a[i]);
-	}
+	display(a);
 	descending(a);
-	for(i=0;i<5;i++){
-		printf("%d\n",a[i]);
-	}
+	display(a);
 }
 
-int read() {
-	int n;
-	scanf("%d",&n);
-	return n;
+void read(int a[5]) {
+	int i;
+	printf("Enter 5 numbers: ");
+	for(i=0;i<5;i++){
+		scanf("%d",&a[i]);
+	}
 }
 
 void ascending(int a[5]) {
@@ -55,5 +51,12 @@ void descending(int a[5]) {
 				a[j]=temp;
 			}
 		}
+	}
+}
+
+void display(int a[5]){
+	int i;
+	for(i=0;i<5;i++){
+		printf("%d\n",a[i]);
 	}
 }

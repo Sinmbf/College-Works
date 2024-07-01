@@ -12,8 +12,8 @@ public class Eight {
         System.out.println("Enter a string: ");
         String str = sc.next();
         // Display
-        System.out.println("Entered integer: " + n);
-        System.out.println("Entered string: " + str);
+        System.out.println("Integer: " + n);
+        System.out.println("String: " + str);
         sc.close();
     }
 }

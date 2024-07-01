@@ -18,9 +18,9 @@ public class Nine {
             }
         }
         if (isPrime) {
-            System.out.println(n + " is prime number");
+            System.out.println(n + " is prime");
         } else {
-            System.out.println(n + " is composite number");
+            System.out.println(n + " is composite");
         }
         sc.close();
     }

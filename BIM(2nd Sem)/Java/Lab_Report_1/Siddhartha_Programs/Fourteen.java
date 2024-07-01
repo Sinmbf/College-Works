@@ -6,25 +6,22 @@ public class Fourteen {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         boolean isPass = true;
-        int[] marks = new int[5];
         int totalMarks = 0;
-        for (int i = 0; i < 5; i++) {
-            int next = i + 1;
-            System.out.print("Enter marks of subject " + next + ": " + "\n");
-            marks[i] = sc.nextInt();
-            totalMarks += marks[i];
+        for (int i = 1; i <= 5; i++) {
+
+            System.out.print("Enter marks of subject " + i + ": ");
+            int marks = sc.nextInt();
+            if (marks <= 35) {
+                isPass = false;
+            }
+            totalMarks += marks;
         }
         double percentage = (double) totalMarks / 500 * 100;
         System.out.println("Percentage: " + percentage + "\nTotal Marks Obtained: " + totalMarks);
-        for (int mark : marks) {
-            if (mark < 35) {
-                System.out.println("Result: Fail");
-                isPass = false;
-                break;
-            }
-        }
         if (isPass) {
             System.out.println("Result: Pass");
+        } else {
+            System.out.println("Result: Fail");
         }
         sc.close();
     }

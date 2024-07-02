@@ -18,6 +18,8 @@ public class Three {
         String result = (n1 % 2 == 0) ? (n1 + " is even") : (n1 + " is odd");
         System.out.println(result);
         // Check if negative or positive
+        System.out.println("Enter a number: ");
+        n1 = sc.nextInt();
         result = (n1 > 0) ? (n1 + " is positive") : (n1 + " is negative");
         System.out.println(result);
         // Find the greatest among three

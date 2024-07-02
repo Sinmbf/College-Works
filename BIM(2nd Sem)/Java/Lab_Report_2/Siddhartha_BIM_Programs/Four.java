@@ -20,15 +20,17 @@ public class Four {
         }
         double percentage = (double) totalMarks / 500 * 100;
         System.out.println("Percentage: " + percentage);
+        String division = " ";
         if (percentage >= 80 && percentage <= 100) {
-            System.out.println("Division: Distinction");
+            division = "Distinction";
         } else if (percentage >= 60) {
-            System.out.println("Division: First Division");
+            division = "First Division";
         } else if (percentage >= 40) {
-            System.out.println("Division: Second Division");
+            division = "Second Division";
         } else {
-            System.out.println("Fail");
+            division = "Fail";
         }
+        System.out.println("Division: " + division);
         sc.close();
     }
 }

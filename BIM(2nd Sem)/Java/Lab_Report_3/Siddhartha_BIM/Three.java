@@ -17,7 +17,7 @@ public class Three {
                 "Riya"
         };
         // Display students whose name end with 'a'
-        System.out.println("Students whose name ends with \'a\':");
+        System.out.println("Students whose name ends with 'a':");
         for (int i = 0; i < arr.length; i++) {
             // Find last index of string
             int lastIndex = arr[i].length() - 1;

@@ -41,9 +41,14 @@ public class Seven {
             }
             // Display the result
             System.out.println("After multiplication: ");
-            for (int i = 0; i < r2; i++) {
-                for (int j = 0; j < c2; j++) {
-                    System.out.print(arrProduct[i][j] + "\t");
+            // for (int i = 0; i < r2; i++) {
+            // for (int j = 0; j < c2; j++) {
+            // System.out.print(arrProduct[i][j] + "\t");
+            // }
+            // }
+            for (int subArr[] : arrProduct) {
+                for (int element : subArr) {
+                    System.out.print(element + "\t");
                 }
             }
             sc.close();

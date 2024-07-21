@@ -18,7 +18,7 @@ public class One {
             arr[i] = sc.nextInt();
         }
         // Find elements divisible by 2 and 3
-        System.out.println("Numbers divisible by 2 an 3: ");
+        System.out.println("Numbers divisible by 2 and 3: ");
         for (int i = 0; i < size; i++) {
             if (arr[i] % 2 == 0 && arr[i] % 3 == 0) {
                 System.out.println(arr[i]);

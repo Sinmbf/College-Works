@@ -3,7 +3,7 @@
 
 public class Two {
     public static void main(String[] args) {
-        // Declare array of size 30
+        // Declare array of size 30\
         int arr[] = {
                 1, 34, 56, 89, 34, 54, 3, 43, 56, 87, 34, 40, 23, 45, 6, 32, 12, 22, 112, 98, 87,
                 12, 23, 55, 53, 23, 78, 98, 47, 33

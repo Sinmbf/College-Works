@@ -23,10 +23,9 @@ public class Eight {
         jaggedArray[1][2] = 6;
         // Display elements
         System.out.println("Elements of the jagged array: ");
-        for (int i = 0; i < jaggedArray.length; i++) {
-            System.out.println("Elements in row " + (i + 1) + ": ");
-            for (int j = 0; j < jaggedArray[i].length; j++) {
-                System.out.println(jaggedArray[i][j]);
+        for (int subArr[] : jaggedArray) {
+            for (int element : subArr) {
+                System.out.println(element);
             }
         }
     }

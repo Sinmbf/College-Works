@@ -44,7 +44,7 @@ class Number {
         System.out.println("\nEven numbers from " + this.x + " to " + this.y);
         for (int i = this.x; i <= this.y; i++) {
             if (i % 2 == 0) {
-                System.out.print(+i + "\t");
+                System.out.print(i + "\t");
             }
         }
     }
@@ -61,13 +61,13 @@ public class Three {
         System.out.println("Enter two numbers: ");
         int num1 = sc.nextInt();
         int num2 = sc.nextInt();
-        // Parameterized Constructor
-        Number n3 = new Number(num1, num2);
-        if (num2 > num1) {
+        if (num1 > num2) {
             int temp = num1;
             num1 = num2;
             num2 = temp;
         }
+        // Parameterized Constructor
+        Number n3 = new Number(num1, num2);
         // Call methods
         n3.findOdd();
         n3.findEven();

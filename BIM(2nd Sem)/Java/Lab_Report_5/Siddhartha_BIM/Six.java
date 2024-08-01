@@ -21,7 +21,7 @@ class SimpleCalculator extends Calculator {
             x = y;
             y = temp;
         }
-        System.out.println("Prime numbers from " + x + " to " + y + ":");
+        System.out.println("\nPrime numbers from " + x + " to " + y + ":");
         for (int i = x; i <= y; i++) {
             boolean isPrime = true;
             for (int j = 2; j < i; j++) {
@@ -61,6 +61,7 @@ public class Six {
         SimpleCalculator sc = new SimpleCalculator();
         // Call methods
         sc.calcPrime(1, 50);
+        sc.calcPrime(1, 10);
         sc.calcEven(1, 10);
     }
 }

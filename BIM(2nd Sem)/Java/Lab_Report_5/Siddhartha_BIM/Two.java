@@ -38,8 +38,10 @@ class Student {
             return "Second Division";
         } else if (grade == "C") {
             return "Pass";
-        } else {
+        } else if (grade == "D") {
             return "Fail";
+        } else {
+            return "Invalid";
         }
     }
 

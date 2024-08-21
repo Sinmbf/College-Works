@@ -56,7 +56,7 @@ class Rectangle extends Shape {
 }
 
 // Main Class
-public class One {
+public class One_ {
     public static void main(String[] args) {
         // Create instance(object)
         Triangle t1 = new Triangle();

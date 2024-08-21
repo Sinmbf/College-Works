@@ -28,7 +28,7 @@ class Calculate extends Calculation {
     // Method to calculate difference
     @Override
     public void calc(int x, int y) {
-        System.out.println("Own method: ");
+        System.out.println("method (sub class): ");
         System.out.println(x + " - " + y + ": " + (x - y));
     }
 }

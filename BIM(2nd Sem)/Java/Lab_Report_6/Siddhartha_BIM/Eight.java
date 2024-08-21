@@ -23,7 +23,7 @@ class ExamDept {
     }
 }
 
-// Parent class
+// Child class
 class Result extends ExamDept {
     // Member variable
     int[] marksArr = new int[5];

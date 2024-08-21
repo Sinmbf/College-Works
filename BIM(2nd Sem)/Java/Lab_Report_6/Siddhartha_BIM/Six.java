@@ -25,7 +25,7 @@ class FictionBooks extends Book {
 
     // Constructor to set member variable
     public FictionBooks(String name, int book_id, int pages) {
-        super(book_id, pages); // Call parent method
+        super(book_id, pages); // Call parent constructor
         this.name = name;
     }
 

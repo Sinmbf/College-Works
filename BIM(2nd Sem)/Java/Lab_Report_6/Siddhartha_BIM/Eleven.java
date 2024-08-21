@@ -50,7 +50,7 @@ class SavingAccount extends BankAccount {
         } else if (month < 12) {
             bonus = 0.08 * currentAmount;
         } else {
-            bonus = (double) 11.03 / 100 * currentAmount;
+            bonus = 11.03 / 100 * currentAmount;
         }
         // Return total amount
         return (currentAmount + bonus);
@@ -61,7 +61,7 @@ class SavingAccount extends BankAccount {
 public class Eleven {
     public static void main(String[] args) {
         // Create object
-        SavingAccount sa = new SavingAccount(500001, 4, 101, "Sinmbf", "Dallu", "9865135874", "Male");
+        SavingAccount sa = new SavingAccount(500001, 13, 101, "Sinmbf", "Dallu", "9865135874", "Male");
         // Call method
         sa.showDetails();
         double totalAmount = sa.calcTotal();

@@ -1,0 +1,22 @@
+Stream:
+
+    A stream is a sequence of data elements made available over time. Streams provide a way  to read data from or write data to a source (like a file, network connection, etc.) without needing to load everything into memory at once.
+
+    Think of a stream like a "pipe" that allows data to flow from one point to another.
+
+    For input streams: imagine you are receiving water (data) from the pipe into a bucket (your program).
+
+    For output streams: you are pouring water (data) from the bucket (your program) into the pipe (a file or network).
+
+Types of Stream:
+
+    1. Input Stream : Used for reading data
+    2. Output Stream : Used for writing data
+
+Key Concepts:
+
+    Byte Stream: 
+        Handles raw binary data, reading or writing one byte at a time. These are useful for binary data like images, audio, etc. Examples include InputStream and OutputStream classes.
+
+    Character Stream: 
+        Handles characters rather than bytes, designed to read and write text data (i.e., it converts bytes to characters using a specified character encoding). Examples include Reader and Writer classes like FileReader, FileWriter.

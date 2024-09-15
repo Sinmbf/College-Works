@@ -22,7 +22,11 @@ int impl(int a, int b){
 
 void main(){
 	int p,q,r,a,b,c,d,res,flag=1;
+<<<<<<< HEAD
 	printf("Truth table of ((p-->q)^(q--r))-->(p-->r) is \n\n");
+=======
+	printf("Truth table of ((p-->q)^(q-->r))-->(p-->r) is \n\n");
+>>>>>>> 0cf41913e859f782c6f8dfd6e72496e4ada4307f
 	printf("p\t q\t r\t ((p-->q)^(q-->r))-->(p-->r)\n");
 	for(p=0;p<=1;p++){
 		for(q=0;q<=1;q++){
@@ -45,4 +49,8 @@ void main(){
 	else{
 		printf("Since some of the truth values are FALSE \n So((p-->q)^(q-->r))-->(p-->r) is not a Tautology");
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0cf41913e859f782c6f8dfd6e72496e4ada4307f

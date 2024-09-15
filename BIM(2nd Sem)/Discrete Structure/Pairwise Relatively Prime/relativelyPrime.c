@@ -28,7 +28,11 @@ int GCD(int x, int y){
 	return x;
 }
 
+<<<<<<< HEAD
 int main(){
+=======
+void main(){
+>>>>>>> 0cf41913e859f782c6f8dfd6e72496e4ada4307f
 	int a[10],i,n,res;
 	printf("How many integer to take PRP? ");
 	scanf("%d",&n);
@@ -43,5 +47,8 @@ int main(){
 	else{
 		printf("They are not PRP");
 	}
+<<<<<<< HEAD
 	return 0;
+=======
+>>>>>>> 0cf41913e859f782c6f8dfd6e72496e4ada4307f
 }

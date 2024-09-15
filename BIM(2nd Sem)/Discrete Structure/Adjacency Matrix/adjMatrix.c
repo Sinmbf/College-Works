@@ -7,14 +7,25 @@ int N,M;
 
 // Function to create Adjacency Matrix
 void createAdjMatrix(int Adj[][N+1], int arr[][2]){
+<<<<<<< HEAD
 	// Initialize all value to this Adjacency list to zero
 	for(int i=0;i<N+1;i++){
 		for(int j=0;j<N+1;j++){
+=======
+	int i,j;
+	// Initialize all value to this Adjacency list to zero
+	for(i=0;i<N+1;i++){
+		for(j=0;j<N+1;j++){
+>>>>>>> 0cf41913e859f782c6f8dfd6e72496e4ada4307f
 			Adj[i][j]=0;
 		}
 	}
 	// Traverse the array of Edges
+<<<<<<< HEAD
 	for(int i=0;i<M;i++){
+=======
+	for(i=0;i<M;i++){
+>>>>>>> 0cf41913e859f782c6f8dfd6e72496e4ada4307f
 		// Find X and Y of Edges
 		int x=arr[i][0];
 		int y=arr[i][1];
@@ -26,9 +37,16 @@ void createAdjMatrix(int Adj[][N+1], int arr[][2]){
 
 // Function to print the created Adjacency Matrix
 void printAdjMatrix(int Adj[][N+1]){
+<<<<<<< HEAD
 	// Traverse the Adj[][]
 	for(int i=1;i<N+1;i++){
 		for(int j=1;j<N+1;j++){
+=======
+	int i,j;
+	// Traverse the Adj[][]
+	for(i=1;i<N+1;i++){
+		for(j=1;j<N+1;j++){
+>>>>>>> 0cf41913e859f782c6f8dfd6e72496e4ada4307f
 			// Print the value at Adj[i][j]
 			printf("%d",Adj[i][j]);
 		}
@@ -51,4 +69,8 @@ int main(){
 	// Print Adjacency Matrix
 	printAdjMatrix(Adj);
 	return 0;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0cf41913e859f782c6f8dfd6e72496e4ada4307f

@@ -1,0 +1,70 @@
+<!-- Write HTMl to generate the following output
+
+    Create a table like given. Set link to www.facebook.com in the text "Null". The title of your html page should be "Test". The table should be in a div having id dv1.
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-spacing: 0;
+            width: 30%;
+            text-align: left;
+        }
+
+        th,
+        td {
+            padding: .5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="dv1">
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Page</th>
+                <th>Price</th>
+            </tr>
+
+            <tr>
+                <td>Test</td>
+                <td>200</td>
+                <td>140</td>
+            </tr>
+
+            <tr>
+                <td rowspan="2">Hello</td>
+                <td rowspan="2">100</td>
+                <td>300</td>
+            </tr>
+
+            <tr>
+                <td><a href="http://facebook.com">Null</a></td>
+            </tr>
+
+        </table>
+
+        <p>The above table is about the;</p>
+        <ol type="a">
+            <li> Use of rows and columns</li>
+            <li> Use of <b>rows</b></li>
+            <li><b>X<sup>y</sup></b></li>
+        </ol>
+    </div>
+
+
+
+</body>
+
+</html>

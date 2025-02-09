@@ -1,2 +1,5 @@
 *.exe
 *.class
+/BIM(3rd Sem)/DSA/nbproject/private/
+/BIM(3rd Sem)/DSA/build/
+/BIM(3rd Sem)/DSA/Lab Work/build/

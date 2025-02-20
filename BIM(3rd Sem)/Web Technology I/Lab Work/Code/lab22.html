@@ -1,0 +1,29 @@
+<!-- Write a JavaScript Program to sort words in alphabetical order. -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 21</title>
+</head>
+
+<body>
+    <script>
+        // Take input
+        const string = prompt("Enter a sentence: ");
+        // Create an array of words
+        const words = string.split(' ');
+        // Sort the words in alphabetical order (based on ASCII code)
+        words.sort();
+        // Display the sorted words
+        document.write("The sorted words are: ");
+        for (const element of words) {
+            document.write(element + " ");
+        }
+    </script>
+
+</body>
+
+</html>

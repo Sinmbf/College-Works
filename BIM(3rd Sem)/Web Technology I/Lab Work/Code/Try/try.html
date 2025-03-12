@@ -1,0 +1,38 @@
+<!-- 
+Online HTML, CSS and JavaScript editor to run code online.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Browser</title>
+</head>
+
+<body>
+    <form name="myForm" action="" onsubmit="return validateForm()">
+        Name: <input type="text" name="fname">
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        function validateForm() {
+            var x = document.myForm.fname.value;
+            console.log(x.lastIndexOf("."));
+            if (isNaN(x)) {
+                console.log("Not a number");
+            }
+            else {
+                console.log("is number");
+            }
+            if (x == "") {
+                alert("Name must be filled out");
+                return false;
+            }
+
+        }
+    </script>
+</body>
+
+</html>

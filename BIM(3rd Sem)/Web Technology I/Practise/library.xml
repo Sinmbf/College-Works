@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="library.xsd">
+    <book id="100" category="fiction" language="">
+        <title>Harry Potter</title>
+        <author>Sinmbf</author>
+        <year>2001</year>
+        <price currency="USD">200</price>
+    </book>
+</library>

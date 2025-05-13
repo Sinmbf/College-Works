@@ -10,24 +10,24 @@ public class HeapSort {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the size of the array ????");
+        System.out.println("Enter the size of the array: ");
         n = sc.nextInt();
         n1 = n;
 
-        System.out.println("Enter Elements of araay ????");
+        System.out.println("Enter Elements of araay: ");
 
         for (int i = 1; i <= n; i++) {
-            System.out.println("A[" + i + "] : ");
+            System.out.print("A[" + i + "] : ");
             A[i] = sc.nextInt();
         }
 
-        System.out.println("DATA BEFORE SORTING: ");
+        System.out.println("Data Before Sorting: ");
         System.out.println("*********************");
         display();
 
         heapSort();
 
-        System.out.println("\nDATA AFTER SORTING: ");
+        System.out.println("\nData After Sorting: ");
         System.out.println("*********************");
         display();
     }

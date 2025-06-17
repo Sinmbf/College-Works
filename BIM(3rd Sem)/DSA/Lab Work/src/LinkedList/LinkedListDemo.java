@@ -26,19 +26,20 @@ public class LinkedListDemo {
         InsertAtFirst(200);
         InsertAtFirst(300);
         InsertAtLast(400);
-        System.out.println("After insertion at first: ");
-        traverse();
+//        System.out.println("After insertion at first: ");
+//        traverse();
         InsertAtSpeciPosition(500);
-        traverse();
-        deleteFromFirst();
-        System.out.println("After deletion from first: ");
-        traverse();
-        deleteFromLast();
-        System.out.println("After deletion from last: ");
-        traverse();
-        deleteFromSpecificPosition();
-        System.out.println("After deletion from specific position: ");
-        traverse();
+//        traverse();
+//        deleteFromFirst();
+//        System.out.println("After deletion from first: ");
+//        traverse();
+//        deleteFromLast();
+//        System.out.println("After deletion from last: ");
+//        traverse();
+//        deleteFromSpecificPosition();
+//        System.out.println("After deletion from specific position: ");
+//        traverse();
+          traverse();
     }
 
     // Method to insert node at the beginning
@@ -74,27 +75,30 @@ public class LinkedListDemo {
         Scanner sc = new Scanner(System.in);
         System.out.println("Please Enter the position where you want to insert: ");
         int pos = sc.nextInt();
-        int size = 0;
+        boolean flag = false;
         Node temp = head;
-        while (temp != null) {
-            temp = temp.next;
-            size++;
-        }
+        Node temp2=head;
 
-        if (pos > size) {
-            System.out.println("Position out of range!!!");
-        } else if (pos == 0) {
+        if (pos == 0) {
             InsertAtFirst(node.data);
         } else {
-            temp = head;
-            int i = 1;
-            while (i < pos) {
-                temp = temp.next;
-                i++;
+            temp=head;
+            int i=1;
+            while(temp!=null){
+                temp2=temp;
+                temp=temp.next;
+                if(pos==i){
+                    temp2.next=node;
+                    node.next=temp;
+                    flag=true;
+                    break;
+                }
+                i++;  
             }
-
-            node.next = temp.next;
-            temp.next = node;
+            if(!flag){
+                System.out.println("Position out of reach");
+            }
+          
         }
 
     }

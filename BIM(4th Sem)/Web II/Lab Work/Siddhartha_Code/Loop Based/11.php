@@ -6,5 +6,6 @@ function checkEvenOdd($num)
     echo ($num % 2 == 0) ? "$num is even" : "$num is odd";
 }
 
-checkEvenOdd(52);
+$num=52;
+checkEvenOdd($num);
 ?>

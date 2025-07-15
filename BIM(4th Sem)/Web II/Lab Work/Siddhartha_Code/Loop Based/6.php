@@ -8,7 +8,7 @@ $rev = 0;
 while ($num > 0) {
     $rem = $num % 10;
     $rev = $rev * 10 + $rem;
-    $num = (int)($num / 10); // Convert to int because '/' performs floating point division in php. So it keeps on changing num to a very small floating point number. This prevents the num from reaching 0. Eventually, rev becomes very large due to accumulating digits from incorrect remainders — finally, it overflows and becomes INF
+    $num = (int)($num / 10); // Use (int) to avoid float division; without it, num shrinks slowly and never hits 0, causing rev to grow endlessly and overflow to INF
 }
 
 echo "Reverse of $org_num: $rev";

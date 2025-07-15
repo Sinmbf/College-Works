@@ -6,9 +6,7 @@ function countWords($str)
 
     $trimmed = trim($str); // remove leading and trailing white spaces
     $words = preg_split("/\s+/", $trimmed); // /.../ -> inside put regexp, \s -> any whitespace characters, '+' -> one or more of the previous element
-    if ($words[0] == '')  // if the string is empty return 0
-        return 0;
-    return count($words);
+    return ($words[0] == '') ? 0 : count($words); // If empty string return 0 otherwise return number of words
 }
 
 $str = "I am sid";

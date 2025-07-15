@@ -4,11 +4,11 @@
 
 function reverseString($str)
 {
-    $newStr = "";
+    $revStr = "";
     for ($i = strlen($str) - 1; $i >= 0; $i--) {
-        $newStr = $newStr . $str[$i];
+        $revStr = $revStr . $str[$i];
     }
-    return $newStr;
+    return $revStr;
 }
 
 $str = "Sid";

@@ -13,6 +13,7 @@ foreach ($arr1 as $num) {
 foreach ($arr2 as $num) {
     $merged[] = $num; // append values of array 2
 }
+// $merged = array_merge($arr1, $arr2);
 
 // Remove duplicate
 for ($i = 0; $i < count($merged); $i++) {

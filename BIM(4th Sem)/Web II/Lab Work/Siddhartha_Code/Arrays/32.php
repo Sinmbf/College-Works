@@ -6,12 +6,13 @@ $departmentCount = [];
 
 foreach ($emp_arr as $emp => $department) {
     $isPresent = false;
-
     // if (isset($departmentCount[$dep])) {  // isset() checks if the key already exists in the $departmentCounts array
     //     $departmentCount[$dep]++;
     // } else {
     //     $departmentCount[$dep] = 1;
     // }
+
+
     foreach ($departmentCount as $dep => $count) {
         if ($department == $dep) {
             $isPresent = true;

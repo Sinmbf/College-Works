@@ -1,32 +1,21 @@
-<!-- 29. Create an associative array of countries and their capitals. Display them alphabetically by country name. -->
-
 <?php
-$arr = ["Nepal" => "Kathmandu", "India" => "New Delhi", "United States" => "Washington DC", "France" => "Paris", "Japan" => "Tokyo"];
-
-// Sort by keys of associative array
-ksort($arr);
-echo "Sorted in alphabetical order by country name:<br>";
-foreach ($arr as $country_name => $capital)
-    echo "Country: $country_name, Capital:$capital<br>";
-// Create two indexed arrays of country and capital
-// $keys = array_keys($arr);
-// $values = array_values($arr);
-// $length = count($keys);
-// for ($i = 0; $i < $length - 1; $i++) {
-//     for ($j = $i + 1; $j < $length; $j++) {
-//         if (strcmp($keys[$i], $keys[$j]) > 0) {
-//             $temp = $keys[$i];
-//             $keys[$i] = $keys[$j];
-//             $keys[$j] = $temp;
-
-//             $temp2 = $values[$i];
-//             $values[$i] = $values[$j];
-//             $values[$j] = $temp2;
-//         }
-//     }
-// }
-
-// for ($i = 0; $i < $length; $i++) {
-//     echo "Country: $keys[$i], Capital: $values[$i]<br> ";
-// }
-?>
+$arr = [
+    ["Country" => "Nepal", "Capital" => "Kathmandu"],
+    ["Country" => "India", "Capital" => "New Delhi"],
+    ["Country" => "United States", "Capital" => "Washington DC"],
+    ["Country" => "France", "Capital" => "Paris"],
+    ["Country" => "Japan", "Capital" => "Tokyo"]
+];
+for ($i = 0; $i < count($arr); $i++) {
+    for ($j = $i + 1; $j < count($arr); $j++) {
+        if (strcasecmp($arr[$i]["Country"], $arr[$j]["Country"]) > 0) {
+            $temp = $arr[$i];
+            $arr[$i] = $arr[$j];
+            $arr[$j] = $temp;
+        }
+    }
+}
+echo "Country sorted in alphabetical order:<br>";
+foreach ($arr as $countries) {
+    echo "Country: {$countries["Country"]}, Capital: {$countries["Capital"]}<br>";
+}

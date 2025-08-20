@@ -1,22 +1,27 @@
 <!-- 8. Write a PHP program to demonstrate the use of parent constructor using `parent::__construct()` in inheritance. -->
 
 <?php
-class Base
+class Person
 {
-    public function __construct()
+    public $name;
+
+    public function __construct($name)
     {
-        echo "Parent constructor<br>";
+        $this->name = $name;
+        echo "Person details set<br>";
     }
 }
 
-class Child extends Base
+class Student extends Person
 {
-    public function __construct()
+    public $grade;
+    public function __construct($name, $grade)
     {
-        parent::__construct();
-        echo "Child constructor";
+        parent::__construct($name);
+        $this->grade = $grade;
+        echo "Student details set";
     }
 }
 
-$c = new Child();
+$c = new Student("Sinmbf", "A");
 ?>

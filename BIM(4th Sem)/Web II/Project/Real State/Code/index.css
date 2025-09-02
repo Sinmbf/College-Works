@@ -1,0 +1,22 @@
+/* .hero-section::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:url('../Resources/hero4.webp');
+    background-size:cover;
+    background-position:center;
+     filter: brightness(0.5) blur(1px);
+    z-index:0;
+} */
+
+* {
+  box-sizing: border-box;
+}
+
+/* hero-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 1;
+} */

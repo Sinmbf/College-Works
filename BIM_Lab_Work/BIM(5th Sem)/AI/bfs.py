@@ -1,26 +1,34 @@
-from collections import deque  # Import deque for efficient queue operations
+from collections import deque
 
-# Define the BFS function
-def bfs(tree, start,goal):
-    visited = []  # List to keep track of visited nodes
-    queue = deque([start])  # Initialize the queue with the starting node
+def bfs(tree, start, goal):
+    visited = set([start])
+    queue = deque([start])
+    parent = {start: None}   # To reconstruct path
 
-    print("BFS Traversal: ", end="")
-    while queue:  # While there are still nodes to process
-        node = queue.popleft()  # Dequeue a node from the front of the queue
+    print("BFS Traversal:", end=" ")
 
-        if node not in visited:  # Check if the node has been visited
-            visited.append(node)  # Mark the node as visited
-            print(node, end=" ")  # Output the visited node
-            if node==goal: return
+    while queue:
+        node = queue.popleft()
+        print(node, end=" ")
 
-            # Enqueue all unvisited neighbors (children) of the current node
-            for neighbor in tree[node]:
-                if neighbor not in visited:
-                    queue.append(neighbor)  # Add unvisited neighbors to the queue
+        if node == goal:
+            # Reconstruct path
+            path = []
+            while node is not None:
+                path.append(node)
+                node = parent[node]
+            path.reverse()
+            print("\nFinal Path:", " -> ".join(path))
+            return
 
+        for neighbor in tree[node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                parent[neighbor] = node   # Store parent
+                queue.append(neighbor)
 
-# Define the decision tree as a dictionary
+    print("\nGoal not found.")
+
 tree = {
     'A': ['B', 'C'],  # Node A connects to B and C
     'B': ['D', 'E'],  # Node B connects to D and E
@@ -32,9 +40,4 @@ tree = {
     'H': [], 'I': [], 'J': [], 'K': [],  # Leaf nodes have no children
     'L': [], 'M': [], 'N': [], 'O': []   # Leaf nodes have no children
 }
-
-# Execute BFS starting from node 'A'
-bfs(tree, 'A','D')
-
-
-
+bfs(tree, 'A', 'H')

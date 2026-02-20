@@ -1,18 +1,36 @@
-# Iterative DFS function
-def dfs_iterative(tree, start,goal):
-    visited = [] # Track visited nodes
-    stack = [start]  # Stack for DFS
-    print("DFS Traversal: ", end="")
-    while stack:  # Continue until stack is empty
-        node = stack.pop()  # Pop a node from the stack
+# Iterative DFS function with path reconstruction
+def dfs(tree, start, goal):
+    visited = set()
+    stack = [start]
+    parent = {start: None}   # Store parent to reconstruct path
+
+    print("DFS Traversal:", end=" ")
+
+    while stack:
+        node = stack.pop()
+
         if node not in visited:
-            visited.append(node)  # Mark node as visited
-            print(node, end=" ")  # Print the current node (for illustration)
-            if node==goal: return
+            visited.add(node)
+            print(node, end=" ")
 
-            stack.extend(reversed(tree[node]))  # Add child nodes to stack
+            if node == goal:
+                # Reconstruct path
+                path = []
+                while node is not None:
+                    path.append(node)
+                    node = parent[node]
+                path.reverse()
+                print("\nFinal Path:", " -> ".join(path))
+                return
 
-# Define the decision tree as a dictionary
+            # Add children to stack (reverse for left-to-right traversal)
+            for neighbor in reversed(tree[node]):
+                if neighbor not in visited:
+                    parent[neighbor] = node
+                    stack.append(neighbor)
+
+    print("\nGoal not found.")
+
 tree = {
     'A': ['B', 'C'],
     'B': ['D', 'E'],
@@ -25,5 +43,4 @@ tree = {
     'L': [], 'M': [], 'N': [], 'O': []
 }
 
-# Run DFS starting from node 'A'
-dfs_iterative(tree, 'A','H')
+dfs(tree, 'A', 'H')

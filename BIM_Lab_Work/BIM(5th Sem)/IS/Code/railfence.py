@@ -44,7 +44,7 @@ def decrypt_rail_fence(cipher, rails):
     return "".join(result)
 
 # --- Example ---
-message = "HELLOWORLD"
+message = "HELLOSINMBF"
 key = 3
 encrypted = encrypt_rail_fence(message, key)
 decrypted = decrypt_rail_fence(encrypted, key)

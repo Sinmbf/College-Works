@@ -10,7 +10,7 @@ def vernam_cipher(text_bytes, key_bytes):
     return bytes(a ^ b for a, b in zip(text_bytes, key_bytes))
 
 # --- Example Usage ---
-message = "Hello everyone"
+message = "Hello sinmbf"
 message_bytes = message.encode()
 
 # 1. Generate a key of the exact same length as the message

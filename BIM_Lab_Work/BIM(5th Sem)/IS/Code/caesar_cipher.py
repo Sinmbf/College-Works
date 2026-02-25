@@ -21,7 +21,7 @@ def caesar_decrypt(text, shift):
     return caesar_encrypt(text, -shift)
 
 # Example Usage:
-plaintext = "Hello, World!"
+plaintext = "Hello, sinmbf!"
 key = 3
 encrypted_message = caesar_encrypt(plaintext, key)
 print(f"Plaintext: {plaintext}")

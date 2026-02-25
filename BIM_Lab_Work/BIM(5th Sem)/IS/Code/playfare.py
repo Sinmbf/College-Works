@@ -69,8 +69,8 @@ def playfair_cipher(text, key, mode='encrypt'):
     return result
 
 # --- Execution Example ---
-my_key = "KEYWORD"
-my_msg = "HELLO WORLD"
+my_key = "LOST"
+my_msg = "HELLO SINMBF"
 
 # Encrypt
 ciphertext = playfair_cipher(my_msg, my_key, mode='encrypt')

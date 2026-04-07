@@ -57,12 +57,13 @@ print(*vars, *subs, sep="\t")
 for values in itertools.product([True, False], repeat=len(vars)):
     env = dict(zip(vars, values))
     env["implies"] = implies
-
+ 
     row = list(values)
 
     for s in subs:
         try:
             result = eval(convert(s), {}, env)
+
         except:
             result = "Err"
         row.append(result)

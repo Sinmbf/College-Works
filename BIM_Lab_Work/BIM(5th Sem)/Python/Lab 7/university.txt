@@ -1,0 +1,2 @@
+ABC College,Kathmandu,50
+XYZ College,Pokhara,30

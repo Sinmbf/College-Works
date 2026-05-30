@@ -1,0 +1,19 @@
+# ─────────────────────────────────────────────────────────────
+#  Face Mask Detection App — Python Dependencies
+# ─────────────────────────────────────────────────────────────
+
+# Web framework
+streamlit>=1.35.0
+
+# Deep learning
+tensorflow>=2.13.0          # includes Keras; use tensorflow-cpu if no GPU
+
+# Image processing
+opencv-python-headless>=4.8.0   # headless = no GUI deps (server-safe)
+numpy>=1.24.0
+Pillow>=10.0.0
+
+# ─────────────────────────────────────────────────────────────
+#  Optional: GPU acceleration
+#   Replace tensorflow with tensorflow-gpu if you have CUDA
+# ─────────────────────────────────────────────────────────────

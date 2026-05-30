@@ -1,0 +1,27 @@
+Place your trained model file here as:
+
+    model/model.h5
+
+The file is loaded once at startup by utils/predictor.py.
+
+──────────────────────────────────────────────────────────────
+EXPECTED MODEL PROPERTIES
+──────────────────────────────────────────────────────────────
+  Framework  : TensorFlow / Keras (.h5 SavedModel format)
+  Input shape: (None, 128, 128, 3)   ← batch, height, width, channels
+  Output shape: (None, 2)            ← [prob_no_mask, prob_mask]
+  Label mapping:
+      index 0 → No Mask
+      index 1 → Mask
+
+──────────────────────────────────────────────────────────────
+HOW TO SAVE YOUR MODEL FROM THE NOTEBOOK
+──────────────────────────────────────────────────────────────
+After training in the notebook, save with:
+
+    model.save('model/model.h5')
+
+or (TF SavedModel format):
+
+    model.save('model/')
+    # then update MODEL_PATH in utils/predictor.py

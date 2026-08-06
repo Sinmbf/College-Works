@@ -1,4 +1,5 @@
 file = None
+import math
 
 try:
     file = open("words.txt", "r")
@@ -22,5 +23,6 @@ except FileNotFoundError:
 
 finally:
     print(file)
+    print(math.random.randint())
     if file:
         file.close()

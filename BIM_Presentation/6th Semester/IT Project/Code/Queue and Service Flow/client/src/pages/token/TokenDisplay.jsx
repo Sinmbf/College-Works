@@ -1,0 +1,604 @@
+import { useState, useEffect, useRef } from "react";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import QRCode from "qrcode";
+import { QrCode, ChevronDown, ChevronUp } from "lucide-react";
+import MainLayout from "../../layouts/MainLayout";
+import Card from "../../components/ui/Card";
+import Button from "../../components/ui/Button";
+import ServiceRoadmap from "../../components/ServiceRoadmap";
+import { Skeleton } from "../../components/ui/Skeleton";
+import {
+  fetchToken,
+  cancelToken,
+  fetchNotifications,
+  markNotificationRead,
+} from "../../services/tokens";
+import { fetchServiceById } from "../../services/services";
+
+const STATUS_FALLBACK_LABEL = {
+  WAITING: "Waiting",
+  CALLED: "Your turn — proceed to counter",
+  CHECKED_IN: "Checked in",
+  SERVING: "Now serving",
+  COMPLETED: "Completed",
+  SKIPPED: "Skipped",
+  EXPIRED: "Expired",
+  CANCELLED: "Cancelled",
+  DEFERRED: "Deferred",
+};
+
+const TokenDisplay = () => {
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { id: tokenIdParam } = useParams();
+  const initialToken = location.state;
+
+  const isFreshFromLogin =
+    new URLSearchParams(location.search).get("fresh") === "1";
+  const [shownFreshNotice, setShownFreshNotice] = useState(false);
+
+  const [token, setToken] = useState(initialToken || null);
+  const [isLoading, setIsLoading] = useState(!initialToken);
+  const [loadError, setLoadError] = useState("");
+  const [liveStatus, setLiveStatus] = useState(null);
+  const [liveCurrentStage, setLiveCurrentStage] = useState(null);
+  const [qrSvg, setQrSvg] = useState(null);
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
+  const [cancelError, setCancelError] = useState("");
+  const [serviceDetail, setServiceDetail] = useState(null);
+  const [isServiceLoading, setIsServiceLoading] = useState(true);
+  const [showRoadmap, setShowRoadmap] = useState(false);
+  const [latestNotification, setLatestNotification] = useState(null);
+  const seenNotificationIds = useRef(new Set());
+  const qrCanvasRef = useRef(null);
+
+  useEffect(() => {
+    if (initialToken?.id) return;
+    if (!tokenIdParam) {
+      navigate("/token/services", { replace: true });
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      setIsLoading(true);
+      setLoadError("");
+      try {
+        const data = await fetchToken(tokenIdParam);
+        if (cancelled) return;
+        const serverToken = data?.token || {};
+
+        setToken({
+          ...serverToken,
+          qrPayload: serverToken.qrPayload || initialToken?.qrPayload || null,
+        });
+      } catch (err) {
+        if (cancelled) return;
+        setLoadError(
+          err.response?.status === 404
+            ? "This token no longer exists."
+            : err.response?.data?.message || "Could not load this token.",
+        );
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [tokenIdParam, initialToken, navigate]);
+
+  const serviceName = (() => {
+    const s = token?.service;
+    if (!s) return "";
+    if (typeof s === "string") return t(`token.services.${s}`);
+    return i18n.language === "ne" ? s.nameNe : s.nameEn;
+  })();
+
+  useEffect(() => {
+    if (!token?.qrPayload) return;
+    QRCode.toString(
+      token.qrPayload,
+      {
+        type: "svg",
+        margin: 1,
+        color: { dark: "#0A3A48", light: "#FFFFFF" },
+        width: 240,
+      },
+      (err, svg) => {
+        if (!err) setQrSvg(svg);
+      },
+    );
+  }, [token?.qrPayload]);
+
+  useEffect(() => {
+    if (!token?.id) return;
+    let cancelled = false;
+    const tick = async () => {
+      try {
+        const data = await fetchToken(token.id);
+        if (cancelled) return;
+        if (data?.token?.status) setLiveStatus(data.token.status);
+        if (data?.token?.currentStage)
+          setLiveCurrentStage(data.token.currentStage);
+        if (data?.token?.estimatedWaitMinutes != null)
+          setToken((prev) => ({
+            ...prev,
+            estimatedWaitMinutes: data.token.estimatedWaitMinutes,
+            waitingAhead: data.token.waitingAhead,
+            activeCounters: data.token.activeCounters,
+            baselineMinutes: data.token.baselineMinutes,
+          }));
+      } catch {
+        //
+      }
+    };
+    tick();
+    const interval = setInterval(tick, 8000);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+  }, [token?.id]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const pollNotifications = async () => {
+      try {
+        const data = await fetchNotifications({ tokenId: token.id, limit: 20 });
+        if (cancelled) return;
+        const fresh = (data?.notifications || []).filter(
+          (n) => !seenNotificationIds.current.has(n.id),
+        );
+        if (!fresh.length) return;
+        const newest = fresh[0];
+        fresh.forEach((n) => seenNotificationIds.current.add(n.id));
+        setLatestNotification(newest);
+        if (window.Notification?.permission === "granted") {
+          new window.Notification(newest.titleEn, { body: newest.messageEn });
+        } else if (window.Notification?.permission === "default") {
+          window.Notification.requestPermission().catch(() => {});
+        }
+        markNotificationRead(newest.id).catch(() => {});
+      } catch {}
+    };
+    pollNotifications();
+    const id = setInterval(pollNotifications, 5000);
+    return () => {
+      cancelled = true;
+      clearInterval(id);
+    };
+  }, [token?.id]);
+
+  useEffect(() => {
+    const serviceId = token?.service?.id || token?.serviceId;
+    if (!serviceId) return;
+    let cancelled = false;
+    (async () => {
+      setIsServiceLoading(true);
+      try {
+        const data = await fetchServiceById(serviceId);
+        if (!cancelled) setServiceDetail(data.service || null);
+      } catch {
+        if (!cancelled) setServiceDetail(null);
+      } finally {
+        if (!cancelled) setIsServiceLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [token?.service?.id, token?.serviceId]);
+
+  useEffect(() => {
+    if (isFreshFromLogin && !shownFreshNotice) {
+      setShownFreshNotice(true);
+      const url = new URL(window.location.href);
+      if (url.searchParams.has("fresh")) {
+        url.searchParams.delete("fresh");
+        window.history.replaceState({}, "", url.toString());
+      }
+    }
+  }, [isFreshFromLogin, shownFreshNotice]);
+
+  if (isLoading) {
+    return (
+      <MainLayout>
+        {latestNotification && (
+          <div className="max-w-3xl mx-auto px-4 pt-4">
+            <div className="p-4 bg-blue-50 border-2 border-blue-200 rounded-2xl text-blue-900 shadow-sm">
+              <p className="font-semibold">{latestNotification.titleEn}</p>
+              <p className="text-sm mt-1">{latestNotification.messageEn}</p>
+            </div>
+          </div>
+        )}
+        <div className="max-w-2xl mx-auto py-12 text-center">
+          <div className="inline-block w-12 h-12 border-4 border-neutral-200 border-t-primary-700 rounded-full animate-spin" />
+          <p className="mt-3 text-sm text-neutral-600">Loading your token…</p>
+        </div>
+      </MainLayout>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <MainLayout>
+        <div className="max-w-md mx-auto py-12">
+          <div
+            className="p-4 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700"
+            role="alert"
+          >
+            {loadError}
+          </div>
+          <Button
+            onClick={() => navigate("/token/services")}
+            className="mt-4 w-full"
+          >
+            {t("common.back")}
+          </Button>
+        </div>
+      </MainLayout>
+    );
+  }
+
+  if (!token) return null;
+
+  const status = liveStatus || token.status || "WAITING";
+  const statusColor =
+    status === "WAITING" || status === "CALLED"
+      ? "bg-blue-500"
+      : status === "CHECKED_IN"
+        ? "bg-green-500"
+        : status === "SKIPPED" || status === "EXPIRED"
+          ? "bg-red-500"
+          : "bg-blue-500";
+  const statusKey = STATUS_FALLBACK_LABEL[status] ? status : "WAITING";
+  const generatedDate = token.generatedAt
+    ? new Date(token.generatedAt)
+    : new Date();
+
+  const currentStage = liveCurrentStage || token.currentStage;
+  const totalStages = serviceDetail?.stages?.length || 0;
+  const currentStageOrder =
+    status === "COMPLETED" ? totalStages + 1 : currentStage?.stageOrder;
+  const currentStageName = currentStage
+    ? i18n.language === "ne"
+      ? currentStage.nameNe
+      : currentStage.nameEn
+    : "";
+
+  const handleCancelToken = () => {
+    setShowCancelConfirm(true);
+    setCancelError("");
+  };
+  const confirmCancel = async () => {
+    if (!token?.id) return;
+    setCancelling(true);
+    setCancelError("");
+    try {
+      await cancelToken(token.id);
+
+      navigate("/", { replace: true });
+    } catch (err) {
+      setCancelError(err.response?.data?.message || "Failed to cancel token");
+    } finally {
+      setCancelling(false);
+      setShowCancelConfirm(false);
+    }
+  };
+
+  return (
+    <MainLayout>
+      {isFreshFromLogin && shownFreshNotice && (
+        <div className="max-w-3xl mx-auto px-4 pt-4 mb-4">
+          <div className="p-4 bg-blue-50 border-2 border-blue-200 rounded-2xl text-sm text-blue-800 flex items-start gap-3 shadow-md backdrop-blur-sm">
+            <QrCode className="h-6 w-6 flex-shrink-0 text-blue-600 mt-0.5" />
+            <div>
+              <p className="font-medium">
+                You have an existing active token from your previous session.
+              </p>
+              <p className="text-blue-700 mt-0.5">
+                You can keep using it, or cancel it to generate a new one.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+        <div className="lg:col-span-2 space-y-4">
+          <Card className="backdrop-blur-md bg-white/95">
+            <div className="space-y-6 py-2">
+              <div className="text-center px-2">
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                  {t("token.display.title")}
+                </h2>
+                <p className="text-gray-600 mt-2 text-sm sm:text-base">
+                  {t("token.display.subtitle")}
+                </p>
+              </div>
+
+              <div className="bg-gradient-to-br from-primary-700 to-primary-500 rounded-2xl p-8 md:p-10 mx-2 text-center shadow-lg">
+                <p className="text-white/90 text-xs sm:text-sm font-medium mb-3">
+                  {t("token.display.tokenNumber")}
+                </p>
+                <p className="text-white text-5xl sm:text-6xl md:text-7xl font-bold tracking-wider">
+                  {token.tokenNumber}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 px-2">
+                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                  <span className="text-gray-600 font-medium text-xs sm:text-sm block mb-2 break-words">
+                    {t("token.display.service")}
+                  </span>
+                  <span className="text-gray-900 font-semibold text-base sm:text-lg break-words">
+                    {serviceName}
+                  </span>
+                </div>
+                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                  <span className="text-gray-600 font-medium text-xs sm:text-sm block mb-2 break-words">
+                    {t("token.display.queuePosition")}
+                  </span>
+                  <span className="text-gray-900 font-semibold text-2xl sm:text-3xl break-words">
+                    {token.position}
+                  </span>
+                </div>
+                <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
+                  <span className="text-blue-700 font-medium text-xs sm:text-sm block mb-2">
+                    {t(
+                      "token.display.estimatedWait",
+                      "Estimated time until your turn",
+                    )}
+                  </span>
+                  <span className="text-blue-900 font-bold text-2xl">
+                    {status === "CALLED"
+                      ? t("token.display.yourTurnNow", "Your turn is now")
+                      : status === "SERVING" || status === "CHECKED_IN"
+                        ? t("token.display.inService", "You are being served")
+                        : token.estimatedWaitMinutes != null
+                          ? `${token.estimatedWaitMinutes} ${t("token.display.minutes", "min")}`
+                          : t("token.display.calculating", "Calculating...")}
+                  </span>
+                  {status === "WAITING" && token.waitingAhead != null && (
+                    <p className="text-xs text-blue-700 mt-1">
+                      {t(
+                        "token.display.peopleAhead",
+                        "{{count}} position(s) ahead",
+                        { count: token.waitingAhead },
+                      )}
+                    </p>
+                  )}
+                </div>
+                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                  <span className="text-gray-600 font-medium text-xs sm:text-sm block mb-2 break-words">
+                    {t("token.display.status")}
+                  </span>
+                  <span
+                    className={`inline-block px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold border ${statusColor.replace("bg-", "bg-").replace("500", "50")} ${statusColor.replace("bg-", "text-").replace("500", "800")} border-blue-200`}
+                  >
+                    {STATUS_FALLBACK_LABEL[statusKey]}
+                  </span>
+                </div>
+                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                  <span className="text-gray-600 font-medium text-xs sm:text-sm block mb-2 break-words">
+                    {t("token.display.generatedAt", "Generated")}
+                  </span>
+                  <span className="text-gray-900 font-semibold text-sm break-words">
+                    {generatedDate.toLocaleString(
+                      i18n.language === "ne" ? "ne-NP" : "en-US",
+                    )}
+                  </span>
+                </div>
+                {currentStageName && (
+                  <div className="bg-primary-50 rounded-xl border border-primary-200 sm:col-span-2 overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => setShowRoadmap((v) => !v)}
+                      aria-expanded={showRoadmap}
+                      className="w-full text-left p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 hover:bg-primary-100/60 transition min-w-0"
+                    >
+                      <div className="min-w-0">
+                        <span className="text-primary-700 font-medium text-xs sm:text-sm block mb-2 break-words">
+                          {t("token.display.currentStage", "Current step")}
+                        </span>
+                        <span className="text-primary-900 font-semibold text-base sm:text-lg break-words">
+                          {currentStageName}
+                          {totalStages > 0 && currentStage?.stageOrder && (
+                            <span className="ml-2 text-xs font-medium text-primary-600 align-middle">
+                              {t(
+                                "token.display.stageOfTotal",
+                                "Step {{current}} of {{total}}",
+                                {
+                                  current: currentStage.stageOrder,
+                                  total: totalStages,
+                                },
+                              )}
+                            </span>
+                          )}
+                        </span>
+                      </div>
+                      <span className="w-full sm:w-auto flex-shrink-0 inline-flex items-center justify-between sm:justify-start gap-1 text-xs sm:text-sm font-semibold text-primary-700 pt-1 sm:pt-0 border-t sm:border-t-0 border-primary-200">
+                        {showRoadmap
+                          ? t("token.display.hideDetails", "Hide details")
+                          : t(
+                              "token.display.viewMoreDetails",
+                              "View more details",
+                            )}
+                        {showRoadmap ? (
+                          <ChevronUp className="h-4 w-4" />
+                        ) : (
+                          <ChevronDown className="h-4 w-4" />
+                        )}
+                      </span>
+                    </button>
+
+                    {showRoadmap && (
+                      <div className="p-0 sm:pb-4">
+                        {isServiceLoading ? (
+                          <div className="p-3 sm:p-0">
+                            <Skeleton className="h-40 w-full rounded-2xl" />
+                          </div>
+                        ) : (
+                          serviceDetail?.stages?.length > 0 && (
+                            <ServiceRoadmap
+                              stages={serviceDetail.stages}
+                              currentStageOrder={currentStageOrder}
+                              serviceNameEn={serviceDetail.nameEn}
+                              serviceNameNe={serviceDetail.nameNe}
+                            />
+                          )
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </Card>
+
+          <div className="lg:hidden px-2">
+            {cancelError && (
+              <div
+                className="mb-3 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700"
+                role="alert"
+              >
+                {cancelError}
+              </div>
+            )}
+            {!showCancelConfirm ? (
+              <Button
+                onClick={handleCancelToken}
+                className="w-full bg-red-600 hover:bg-red-700"
+              >
+                {t("token.display.cancelToken")}
+              </Button>
+            ) : (
+              <Card className="backdrop-blur-md bg-red-50 border-2 border-red-200">
+                <div className="space-y-4">
+                  <p className="text-center text-red-900 font-medium text-sm sm:text-base">
+                    {t("token.display.confirmCancel")}
+                  </p>
+                  <div className="flex gap-3">
+                    <Button
+                      onClick={() => setShowCancelConfirm(false)}
+                      variant="secondary"
+                      className="flex-1"
+                      disabled={cancelling}
+                    >
+                      {t("common.cancel")}
+                    </Button>
+                    <Button
+                      onClick={confirmCancel}
+                      variant="danger"
+                      className="flex-1"
+                      disabled={cancelling}
+                      isLoading={cancelling}
+                    >
+                      {cancelling ? "..." : t("common.submit")}
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            )}
+          </div>
+        </div>
+
+        <div className="space-y-4 lg:sticky lg:top-6">
+          <Card className="backdrop-blur-md bg-white/95">
+            <div className="text-center space-y-3 py-2">
+              <p className="text-gray-600 font-medium text-sm sm:text-base">
+                {t("token.display.qrTitle", "Your QR code")}
+              </p>
+              <div
+                className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 mx-2 border-2 border-gray-200 flex items-center justify-center min-h-[256px]"
+                aria-label={t("token.display.qrTitle", "Your QR code")}
+                ref={qrCanvasRef}
+                dangerouslySetInnerHTML={{ __html: qrSvg || "" }}
+              />
+              <p className="text-xs text-gray-500">
+                {t(
+                  "token.display.qrHint",
+                  "Show this code at the office for check-in.",
+                )}
+              </p>
+            </div>
+          </Card>
+
+          <Card className="bg-primary-50 border-2 border-primary-200">
+            <div className="flex items-start gap-3">
+              <svg
+                className="w-6 h-6 text-primary-700 flex-shrink-0 mt-0.5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <div>
+                <h4 className="font-semibold text-primary-900 mb-1 text-sm">
+                  Important
+                </h4>
+                <p className="text-xs text-primary-900 leading-relaxed">
+                  {t("token.display.keepThisPage")}
+                </p>
+              </div>
+            </div>
+          </Card>
+
+          <div className="hidden lg:block">
+            {cancelError && (
+              <div
+                className="mb-3 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700"
+                role="alert"
+              >
+                {cancelError}
+              </div>
+            )}
+            {!showCancelConfirm ? (
+              <Button
+                onClick={handleCancelToken}
+                className="w-full bg-red-600 hover:bg-red-700"
+              >
+                {t("token.display.cancelToken")}
+              </Button>
+            ) : (
+              <Card className="backdrop-blur-md bg-red-50 border-2 border-red-200">
+                <div className="space-y-4">
+                  <p className="text-center text-red-900 font-medium text-sm">
+                    {t("token.display.confirmCancel")}
+                  </p>
+                  <div className="space-y-2">
+                    <Button
+                      onClick={() => setShowCancelConfirm(false)}
+                      variant="secondary"
+                      className="w-full"
+                      disabled={cancelling}
+                    >
+                      {t("common.cancel")}
+                    </Button>
+                    <Button
+                      onClick={confirmCancel}
+                      variant="danger"
+                      className="w-full"
+                      disabled={cancelling}
+                      isLoading={cancelling}
+                    >
+                      {cancelling ? "..." : t("common.submit")}
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            )}
+          </div>
+        </div>
+      </div>
+    </MainLayout>
+  );
+};
+
+export default TokenDisplay;

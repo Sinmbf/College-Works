@@ -1,0 +1,4 @@
+//tagname[@attribute="attribute-value"]
+
+website for guide: https://www.guru99.com/xpath-selenium.html#2-contains
+

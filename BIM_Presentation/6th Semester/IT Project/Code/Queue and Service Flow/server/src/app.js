@@ -13,19 +13,23 @@ import staffTokenRoutes from "./routes/staff/tokens.js";
 import staffQueueRoutes from "./routes/staff/queue.js";
 import notificationRoutes from "./routes/notifications.js";
 import adminDebugRoutes from "./routes/admin/debug.js";
+
 const app = express();
-app.use(helmet()); 
-app.use(cors({
+app.use(helmet());
+app.use(
+  cors({
     origin: process.env.CLIENT_URL,
-    credentials: true
-}));
+    credentials: true,
+  }),
+);
+
 app.use(express.json());
 app.use(cookieParser());
 app.get("/api/health", (_req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "API is running"
-    });
+  res.status(200).json({
+    success: true,
+    message: "API is running",
+  });
 });
 
 app.use("/api/auth/citizen", citizenAuthRoutes);

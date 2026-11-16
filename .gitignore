@@ -1,6 +1,36 @@
+# Executable and compiled files
 *.exe
 *.class
+*.py[cod]
+*$py.class
+
+# Python cache files
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Node.js dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# NetBeans generated files
 /BIM(3rd Sem)/DSA/nbproject/private/
 /BIM(3rd Sem)/DSA/build/
 /BIM(3rd Sem)/DSA/Lab Work/build/
-venv/
